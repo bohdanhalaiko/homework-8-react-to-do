@@ -1,38 +1,173 @@
-.App {
-  text-align: center;
+/* .App {
+    text-align: center;
 }
 
 .App-logo {
-  height: 40vmin;
-  pointer-events: none;
+    height: 40vmin;
+    pointer-events: none;
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+    .App-logo {
+        animation: App-logo-spin infinite 20s linear;
+    }
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+    background-color: #282c34;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
 }
 
 .App-link {
-  color: #61dafb;
+    color: #61dafb;
 }
 
 @keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+} */
+
+body {
+    color: #365e6a;
+    background: olivedrab;
+    font: 400 14px Arial;
+    margin: auto;
+    max-width: 980px;
+}
+
+@media (min-width: 850px) {
+    div.todolist {
+        grid-template-columns: 1fr 1fr;
+        grid-column-gap: 30px;
+        grid-row-gap: 30px;
+    }
+}
+
+#root {
+    margin: 0 10px 0 10px;
+    padding: 0 10px 0 10px;
+    background: #bee187;
+    min-height: 1000px;
+}
+
+h1,
+h2 {
+    margin-top: 0px;
+    text-align: start;
+    padding-top: 20px;
+}
+
+.todolist {
+    display: grid;
+    grid-template-columns: 1fr;
+    margin-top: 40px;
+    margin: auto;
+}
+
+.form {
+    display: flex;
+    max-height: 30px;
+    min-width: 270px;
+    /* justify-content: space-around; */
+}
+
+.greate {
+    min-width: 300px;
+    max-width: 479px;
+    margin-bottom: 30px;
+}
+
+.input {
+    box-sizing: border-box;
+    flex: 1;
+    border: 1px solid black;
+    border-radius: 4px;
+    font: 400 14px Arial;
+    width: 0;
+    padding-left: 5px;
+}
+
+.input-text {
+    border: 1px solid transparent;
+    margin: auto;
+}
+
+.text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: auto;
+    margin-left: 0px;
+    cursor: pointer;
+    transition-duration: 300ms;
+    transition-property: padding, margin;
+    color: red;
+    max-width: max-content;
+    font-style: italic;
+}
+
+.text:hover {
+    white-space: normal;
+    background-color: wheat;
+    text-overflow: clip;
+    border-radius: 4px;
+    margin: 0 -5px 0 -5px;
+    padding: 5px;
+    position: relative;
+    z-index: 5;
+    transition-duration: 300ms;
+    transition-property: padding, margin;
+}
+
+.list {
+    padding: 0px;
+    list-style: none;
+}
+
+.button {
+    font: 400 14px Arial;
+    padding: 6px 12px;
+    font-size: 14px;
+    cursor: pointer;
+    border: 1px solid black;
+    border-radius: 4px;
+    box-sizing: border-box;
+    min-width: 85px;
+}
+/* .button.hide{
+  display: none;
+} */
+
+.input-for-rename::placeholder {
+    color: red;
+}
+
+.fieldset {
+    max-width: 450px;
+}
+
+.legend {
+    padding: 10px;
+    font: 400 24px Arial;
+    color: crimson;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 250px;
+    ;
+}
+
+.button-legend {
+    margin-right: 10px;
+    border-radius: 4px;
 }
