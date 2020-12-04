@@ -1,43 +1,44 @@
 import React from 'react';
 import '../App.css';
 import Todo from './Todo.js'
+import idGenerator from './idGenerator.js'
 
-class TodoLists extends React.Component {
+class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       value: '',
-      todoLists:
-        [
-          {
-            name: 'Kitchen',
-            todoList: [
-              { value: 'Spoon', newValue: '', input: false },
-              { value: 'Fork', newValue: '', input: false }
-            ]
-          },
-          { name: 'Bedroom', todoList: [] }
-        ]
-    }
+      todoLists: [
+        {
+          name: 'Kitchen',
+          idTodoList: idGenerator(),
+          todoList: [
+            { value: 'Spoon', newValue: '', input: false, idLi: idGenerator() },
+            { value: 'Fork', newValue: '', input: false, idLi: idGenerator() }
+          ]
+        },
+        { name: 'Bedroom', idTodoList: idGenerator(), todoList: [] }
+      ]
+    };
   }
-  changeInput = (event) => {
+  handleInputNewNameTodoList = (event) => {
     this.setState({ value: event.target.value });
   }
-  addTodoList = (event) => {
+  handleAddTodoList = (event) => {
     event.preventDefault();
     const { value, todoLists } = this.state;
     if (value) {
-      todoLists.push({ name: value, todoList: [] });
+      todoLists.push({ name: value, idTodoList: idGenerator(), todoList: [] });
       this.setState({ value: '', todoLists: todoLists });
     }
+  }
+  handleDeleteAllTodoLists = () => {
+    this.setState({ todoLists: [] });
   }
   deleteTodoList = (idTodo) => {
     let todoLists = [...this.state.todoLists];
     todoLists.splice(idTodo, 1);
     this.setState({ todoLists: todoLists });
-  }
-  deleteAllTodoLists = () => {
-    this.setState({ todoLists: [] });
   }
   addLi = (idTodo, value) => {
     const { todoLists } = this.state;
@@ -89,10 +90,10 @@ class TodoLists extends React.Component {
     this.setState({ todoLists: todoLists });
   }
   render() {
-    const todoLists = this.state.todoLists.map((el, i) => {
+    const todoLists = this.state.todoLists.map((el) => {
       return (
         <Todo
-          id={i} key={i} name={el.name}
+          id={el.idTodoList} key={el.idTodoList} name={el.name}
           liElements={el.todoList}
           deleteTodoList={this.deleteTodoList}
           deleteAllTodoLists={this.deleteAllTodoLists}
@@ -104,19 +105,20 @@ class TodoLists extends React.Component {
         />
       );
     });
+    console.log(todoLists);
     return (
       <>
         <h1>Create To-do list</h1>
-        <form onSubmit={this.addTodoList} className="form row greate">
+        <form onSubmit={this.handleAddTodoList} className="form row greate">
           <input
             type="text"
             className="input"
             placeholder="add new to-do list..."
             value={this.state.value}
-            onChange={this.changeInput}
+            onChange={this.handleInputNewNameTodoList}
           />
           <button type="submit" className="button submit">Create</button>
-          <button className="button" onClick={this.deleteAllTodoLists}>Delete all</button>
+          <button className="button" onClick={this.handleDeleteAllTodoLists}>Delete all</button>
         </form>
         <div className="todolist" >
           {todoLists}
@@ -127,4 +129,4 @@ class TodoLists extends React.Component {
   }
 }
 
-export default TodoLists;
+export default App;
