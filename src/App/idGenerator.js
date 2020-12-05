@@ -1,11 +1,13 @@
-let databaseUniqueId = new Set();
+sessionStorage.setItem('dataUniqueId', JSON.stringify([]));
 export default function idGenerator() {
   let newId;
-  const preSize = databaseUniqueId.size;
-  while (preSize === databaseUniqueId.size) {
-    newId = +(Math.random() * 1e10).toFixed(0);
-    databaseUniqueId.add(newId);
+  let dataUniqueId = new Set(JSON.parse(sessionStorage.getItem('dataUniqueId')));
+  const preSize = dataUniqueId.size;
+  while (preSize === dataUniqueId.size) {
+    newId = (Math.random() * 1e6).toFixed().padStart(6, 0);
+    dataUniqueId.add(newId);
   }
-  console.log(databaseUniqueId);
+  sessionStorage.setItem('dataUniqueId', JSON.stringify([...dataUniqueId]));
+  console.log(sessionStorage);
   return newId;
 }

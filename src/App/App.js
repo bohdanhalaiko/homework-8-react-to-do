@@ -1,6 +1,7 @@
 import React from 'react';
 import '../App.css';
 import Todo from './Todo.js'
+import dataTodoList from './const/const.js'
 import idGenerator from './idGenerator.js'
 
 class App extends React.Component {
@@ -8,17 +9,7 @@ class App extends React.Component {
     super(props)
     this.state = {
       value: '',
-      todoLists: [
-        {
-          name: 'Kitchen',
-          idTodoList: idGenerator(),
-          todoList: [
-            { value: 'Spoon', newValue: '', input: false, idLi: idGenerator() },
-            { value: 'Fork', newValue: '', input: false, idLi: idGenerator() }
-          ]
-        },
-        { name: 'Bedroom', idTodoList: idGenerator(), todoList: [] }
-      ]
+      todoLists: dataTodoList
     };
   }
   handleInputNewNameTodoList = (event) => {
