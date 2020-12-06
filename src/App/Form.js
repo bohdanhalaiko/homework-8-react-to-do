@@ -1,37 +1,36 @@
 import React from 'react';
-import '../App.css';
 
 class Form extends React.Component {
   constructor(props) {
     super(props);
     this.state = { value: '' };
   }
-  buttonAddLi = (event) => {
+  handleButtonAddLi = (event) => {
     event.preventDefault();
     const { value } = this.state;
     if (value) {
       this.setState({ value: '' });
-      this.props.addLiTakeId(value);
+      this.props.addLi(this.props.idTodoList, value);
     }
   }
-  buttonDeleteAllLi = () => {
-    this.props.deleteAllLiTakeId();
-  }
-  changeInputForm = (event) => {
+  handleInputForm = (event) => {
     this.setState({ value: event.target.value });
   }
   render() {
     return (
-      <form onSubmit={this.buttonAddLi} className="form">
+      <form onSubmit={this.handleButtonAddLi} className="form">
         <input
           type="text"
           className="input"
           placeholder="add..."
           value={this.state.value}
-          onChange={this.changeInputForm}
+          onChange={this.handleInputForm}
         />
         <button type="submit" className="button submit">Add</button>
-        <button className="button delete-list" onClick={this.buttonDeleteAllLi}>
+        <button
+          className="button delete-list"
+          onClick={() => this.props.deleteAllLi(this.props.idTodoList)}
+        >
           Delete all
         </button>
       </form>

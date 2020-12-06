@@ -1,4 +1,5 @@
 import React from 'react';
+import idGenerator from './idGenerator.js'
 import '../App.css';
 
 class Li extends React.Component {
@@ -17,7 +18,7 @@ class Li extends React.Component {
     let content =
       <div className="input input-text">
         <p onClick={this.buttonRenameLi} className="text"            >
-          {this.props.liName.value}
+          {this.props.liName}
         </p>
       </div>;
     if (this.props.liName.input) {
@@ -30,7 +31,7 @@ class Li extends React.Component {
         />
     }
     return (
-      <li className='li' id={this.props.id + 1}>
+      <li className='li' id={this.props.id}>
         <form onSubmit={this.buttonRenameLi} className="form row">
           {content}
           <button className="button hide" type="submit">Rename</button>

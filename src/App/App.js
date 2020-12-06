@@ -26,26 +26,29 @@ class App extends React.Component {
   handleDeleteAllTodoLists = () => {
     this.setState({ todoLists: [] });
   }
-  deleteTodoList = (idTodo) => {
-    let todoLists = [...this.state.todoLists];
-    todoLists.splice(idTodo, 1);
+  deleteAllLi = (id) => {
+    const { todoLists } = this.state;
+    const index = todoLists.findIndex(el => el.idTodoList === id);
+    if (index >= 0) todoLists[index].todoList = [];
     this.setState({ todoLists: todoLists });
   }
-  addLi = (idTodo, value) => {
+  deleteTodoList = (id) => {
     const { todoLists } = this.state;
-    todoLists[idTodo].todoList.push(
+    todoLists.splice(id, 1);
+    this.setState({ todoLists: todoLists });
+  }
+  addLi = (id, value) => {
+    const { todoLists } = this.state;
+    const index = todoLists.findIndex(el => el.idTodoList === id);
+    todoLists[index].todoList.push(
       {
         value: value,
+        idLi: idGenerator(),
         newValue: '',
         input: false
       }
     );
     this.setState({ todoLists: todoLists });
-  }
-  deleteAllLi = (idTodo) => {
-    const { todoLists } = this.state;
-    todoLists[idTodo].todoList = [];
-    this.setState({ todoList: todoLists });
   }
   deleteLi = (idTodo, idLi) => {
     const { todoLists } = this.state;
@@ -84,7 +87,7 @@ class App extends React.Component {
     const todoLists = this.state.todoLists.map((el) => {
       return (
         <Todo
-          id={el.idTodoList} key={el.idTodoList} name={el.name}
+          idTodoList={el.idTodoList} key={el.idTodoList} name={el.name}
           liElements={el.todoList}
           deleteTodoList={this.deleteTodoList}
           deleteAllTodoLists={this.deleteAllTodoLists}
