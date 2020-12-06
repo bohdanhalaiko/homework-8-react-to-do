@@ -6,7 +6,7 @@ import idGenerator from './idGenerator.js'
 
 class App extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       value: '',
       todoLists: dataTodoList
@@ -26,61 +26,40 @@ class App extends React.Component {
   handleDeleteAllTodoLists = () => {
     this.setState({ todoLists: [] });
   }
-  deleteAllLi = (id) => {
+  deleteTodoList = (idTodoList) => {
     const { todoLists } = this.state;
-    const index = todoLists.findIndex(el => el.idTodoList === id);
-    if (index >= 0) todoLists[index].todoList = [];
+    const indexTodoList = todoLists.findIndex(el => el.idTodoList === idTodoList);
+    todoLists.splice(indexTodoList, 1);
     this.setState({ todoLists: todoLists });
   }
-  deleteTodoList = (id) => {
+  addLi = (idTodoList, value) => {
     const { todoLists } = this.state;
-    todoLists.splice(id, 1);
-    this.setState({ todoLists: todoLists });
-  }
-  addLi = (id, value) => {
-    const { todoLists } = this.state;
-    const index = todoLists.findIndex(el => el.idTodoList === id);
-    todoLists[index].todoList.push(
+    const indexTodoList = todoLists.findIndex(el => el.idTodoList === idTodoList);
+    todoLists[indexTodoList].todoList.push(
       {
         value: value,
         idLi: idGenerator(),
-        newValue: '',
-        input: false
       }
     );
     this.setState({ todoLists: todoLists });
   }
-  deleteLi = (idTodo, idLi) => {
+  deleteAllLi = (idTodoList) => {
     const { todoLists } = this.state;
-    todoLists[idTodo].todoList.splice(idLi, 1);
+    const index = todoLists.findIndex(el => el.idTodoList === idTodoList);
+    todoLists[index].todoList = [];
     this.setState({ todoLists: todoLists });
   }
-  renameLi = (idTodo, idLi) => {
+  deleteRemameLi = (idTodoList, idLi, liState) => {
+    if (liState && !liState.input) return true;
     const { todoLists } = this.state;
-    const { value, newValue, input } = todoLists[idTodo].todoList[idLi];
-    if (input && newValue) {
-      todoLists[idTodo].todoList[idLi] = {
-        value: newValue,
-        newValue: '',
-        input: false
-      };
+    const indexTodoList = todoLists.findIndex(el => el.idTodoList === idTodoList);
+    const todoList = todoLists[indexTodoList].todoList;
+    const indexLi = todoList.findIndex(el => el.idLi === idLi);
+    if (liState && liState.input) {
+      todoLists[indexTodoList].todoList[indexLi].value = liState.value;
     } else {
-      todoLists[idTodo].todoList[idLi] = {
-        value: value,
-        newValue: value,
-        input: true
-      };
+      todoLists[indexTodoList].todoList.splice(indexLi, 1);
     }
-    this.setState({ todoLists: todoLists });
-  }
-  takeLiInput = (idTodo, idLi, valueInput) => {
-    const { todoLists } = this.state;
-    const { value, input } = todoLists[idTodo].todoList[idLi];
-    todoLists[idTodo].todoList[idLi] = {
-      value: value,
-      newValue: valueInput,
-      input: input
-    };
     this.setState({ todoLists: todoLists });
   }
   render() {
@@ -93,13 +72,11 @@ class App extends React.Component {
           deleteAllTodoLists={this.deleteAllTodoLists}
           deleteAllLi={this.deleteAllLi}
           addLi={this.addLi}
-          deleteLi={this.deleteLi}
-          renameLi={this.renameLi}
-          takeLiInput={this.takeLiInput}
+          deleteRemameLi={this.deleteRemameLi}
         />
       );
     });
-    console.log(todoLists);
+    console.log(this.state.todoLists);
     return (
       <>
         <h1>Create To-do list</h1>
