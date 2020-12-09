@@ -1,4 +1,7 @@
 import React from 'react';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+
 
 class Form extends React.Component {
   constructor(props) {
@@ -19,20 +22,27 @@ class Form extends React.Component {
   render() {
     return (
       <form onSubmit={this.handleButtonAddLi} className="form">
-        <input
+        <TextField
           type="text"
           className="input"
           placeholder="add..."
           value={this.state.value}
           onChange={this.handleInputForm}
         />
-        <button type="submit" className="button submit">Add</button>
-        <button
+        <Button
+          variant="contained"
+          color="primary" type="submit"
+          className="button submit"
+        >
+          Add</Button>
+        <Button
+          variant="contained"
+          color="secondary"
           className="button delete-list"
           onClick={() => this.props.deleteAllLi(this.props.idTodoList)}
         >
           Delete all
-        </button>
+        </Button>
       </form>
     );
   }

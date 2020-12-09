@@ -1,4 +1,6 @@
 import React from 'react';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 
 class Li extends React.Component {
   constructor(props) {
@@ -14,8 +16,10 @@ class Li extends React.Component {
   }
   handleButtonRenameLi = (event) => {
     event.preventDefault();
+    if (!this.state.value) return true;
     const newInput = this.state.input ? false : true;
     this.setState({ input: newInput });
+    if(newInput) return true;
     this.props.deleteRemameLi(this.props.idTodoList, this.props.idLi, this.state);
   }
   handleInputValue = (event) => {
@@ -24,13 +28,13 @@ class Li extends React.Component {
   render() {
     let content =
       <div className="input input-text">
-        <p onClick={this.handleButtonRenameLi} className="text"            >
+        <p onClick={this.handleButtonRenameLi} className="text">
           {this.state.value}
         </p>
       </div>;
     if (this.state.input) {
       content =
-        <input
+        <TextField
           onChange={this.handleInputValue}
           className="input"
           placeholder='enter new name'
@@ -41,10 +45,22 @@ class Li extends React.Component {
       <li className='li' id={this.props.idLi}>
         <form onSubmit={this.handleButtonRenameLi} className="form row">
           {content}
-          <button className="button hide" type="submit">Rename</button>
-          <button className="button" onClick={this.handleButtonDeleteLi}>
+          <Button
+            variant="contained"
+            color="primary"
+            className="button hide"
+            type="submit"
+          >
+            Rename
+          </Button>
+          <Button
+            variant="contained"
+            color="secondary"
+            className="button"
+            onClick={this.handleButtonDeleteLi}
+          >
             Delete
-            </button>
+          </Button>
         </form>
       </li>
     )

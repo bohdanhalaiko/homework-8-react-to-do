@@ -1,8 +1,10 @@
 import React from 'react';
 import '../App.css';
-import Todo from './Todo.js'
-import dataTodoList from './const/const.js'
-import idGenerator from './idGenerator.js'
+import Todo from './Todo.js';
+import dataTodoList from './const/const.js';
+import idGenerator from './idGenerator.js';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 
 class App extends React.Component {
   constructor(props) {
@@ -50,12 +52,12 @@ class App extends React.Component {
     this.setState({ todoLists: todoLists });
   }
   deleteRemameLi = (idTodoList, idLi, liState) => {
-    if (liState && !liState.input) return true;
+    // if (liState && !liState.input) return true;
     const { todoLists } = this.state;
     const indexTodoList = todoLists.findIndex(el => el.idTodoList === idTodoList);
     const todoList = todoLists[indexTodoList].todoList;
     const indexLi = todoList.findIndex(el => el.idLi === idLi);
-    if (liState && liState.input) {
+    if (liState) {
       todoLists[indexTodoList].todoList[indexLi].value = liState.value;
     } else {
       todoLists[indexTodoList].todoList.splice(indexLi, 1);
@@ -76,26 +78,39 @@ class App extends React.Component {
         />
       );
     });
-    console.log(this.state.todoLists);
     return (
       <>
         <h1>Create To-do list</h1>
         <form onSubmit={this.handleAddTodoList} className="form row greate">
-          <input
+          <TextField
+            color="primary"
             type="text"
             className="input"
-            placeholder="add new to-do list..."
+            // placeholder="add new to-do list..."
             value={this.state.value}
             onChange={this.handleInputNewNameTodoList}
           />
-          <button type="submit" className="button submit">Create</button>
-          <button className="button" onClick={this.handleDeleteAllTodoLists}>Delete all</button>
+          <Button
+            variant="contained"
+            color="primary"
+            type="submit"
+            className="button submit"
+          >
+            Create
+          </Button>
+          <Button
+            variant="contained"
+            color="secondary"
+            className="button"
+            onClick={this.handleDeleteAllTodoLists}
+          >
+            Delete all
+          </Button>
         </form>
         <div className="todolist" >
           {todoLists}
         </div>
       </>
-
     );
   }
 }
